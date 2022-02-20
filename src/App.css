@@ -1,38 +1,204 @@
-.App {
+.game_container h1 {
+  width: 100%;
   text-align: center;
+  margin-bottom: 0;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#lvl_container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  margin: auto;
+  padding: 25px;
+}
+.scrolled_element {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+.grid_container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+  position: relative;
+}
+.grid {
+  color: white;
+  border: 1px solid #d1d1d1;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+}
+.grid::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transition: all 1s ease;
+}
+.grid.gird_checkpoint {
+  background-color: rgb(35, 185, 255);
+}
+.grid.activated_light::after {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 202, 27);
+  border-radius: 0;
+}
+.grid.error_light::after {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 27, 65);
+  border-radius: 0;
+}
+.player {
+  width: 30px;
+  height: 20px;
+  background: rgb(68, 68, 68);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+  border-bottom: 10px solid rgb(35, 172, 87);
+}
+.navigation_container {
+  display: flex;
+  width: 100%;
+}
+.navigation_list {
+  list-style: none;
+  padding: 15px;
+  width: 50%;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.navigation_list.navigation_movement {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, .7);
+  transform: translateX(-100vw);
+  transition: all 0.5s ease;
+  border-right: 2px solid rgb(125, 55, 206);
+  border-top: 2px solid rgb(125, 55, 206);
+  border-bottom: 2px solid rgb(125, 55, 206);
+  /* box-shadow: 5px 5px 20px -15px black; */
+}
+.navigation_list.navigation_movement li {
+  transition: all 0.3s ease;
+}
+.navigation_list.navigation_movement li:hover {
+  background-color: rgb(204, 164, 250);
+  color: #3d3d3d;
+}
+.navigation_list.navigation_program {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgb(68, 68, 68);
+  transform: translateX(100vw);
+  transition: all 0.5s ease;
+}
+.navigation_list.navigation_movement.show,
+.navigation_list.navigation_program.show {
+  transform: translateX(0);
+}
+.navigation_list.navigation_program .navigation_title {
+  border-bottom-color: white;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.navigation_title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 10px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navigation_click {
+  font-size: 18px;
+  cursor: pointer;
+  color: rgb(125, 55, 206);
+  text-transform: capitalize;
+  padding: 5px 8px;
+  border: 1px solid rgb(125, 55, 206);
+  margin: 10px 0;
+  text-align: center;
+}
+.navigation_disabled {
+  font-size: 18px;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  text-transform: capitalize;
+  padding: 5px 8px;
+  border: 1px solid rgb(255, 255, 255);
+  margin: 10px 0;
+  text-align: center;
+  pointer-events: none;
+}
+.start_program {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 18px;
+  background-color:rgb(35, 185, 255);
+  color: white;
+  border: 1px solid transparent;
+  padding: 8px 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+.show_program {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  font-size: 18px;
+  background-color:rgb(255, 160, 35);
+  color: white;
+  border: 1px solid transparent;
+  padding: 8px 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+.show_movement {
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+  font-size: 18px;
+  background-color:rgb(125, 55, 206);
+  color: white;
+  border: 1px solid transparent;
+  padding: 8px 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+.modal {
+  position: fixed;
+  width: 200px;
+  padding: 25px;
+  background-color: #525252;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.modal h2 {
+  margin: 0;
+  color: white;
+}
+.modal p {
+  color: rgb(211, 211, 211);
+  margin-bottom: 50px;
+}
+.btn_next {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 18px;
+  background-color:rgb(35, 185, 255);
+  color: white;
+  border: 1px solid transparent;
+  padding: 8px 24px;
+  line-height: 1;
+  cursor: pointer;
 }
